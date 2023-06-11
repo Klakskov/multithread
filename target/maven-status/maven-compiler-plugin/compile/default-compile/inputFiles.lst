@@ -1,0 +1,11 @@
+/home/euzinha/Documents/projetos/axul/DesafioJavaSrv2/axreng-test-senior/axreng-test/src/main/java/com/scrapperapp/backend/scraper/controller/ScrapperController.java
+/home/euzinha/Documents/projetos/axul/DesafioJavaSrv2/axreng-test-senior/axreng-test/src/main/java/com/scrapperapp/backend/Main.java
+/home/euzinha/Documents/projetos/axul/DesafioJavaSrv2/axreng-test-senior/axreng-test/src/main/java/com/scrapperapp/backend/scraper/model/GetScrapperDto.java
+/home/euzinha/Documents/projetos/axul/DesafioJavaSrv2/axreng-test-senior/axreng-test/src/main/java/com/scrapperapp/backend/scraper/service/ScrapperService.java
+/home/euzinha/Documents/projetos/axul/DesafioJavaSrv2/axreng-test-senior/axreng-test/src/main/java/com/scrapperapp/backend/scraper/model/InputPostScrapper.java
+/home/euzinha/Documents/projetos/axul/DesafioJavaSrv2/axreng-test-senior/axreng-test/src/main/java/com/scrapperapp/backend/scraper/model/PostScrapperDto.java
+/home/euzinha/Documents/projetos/axul/DesafioJavaSrv2/axreng-test-senior/axreng-test/src/main/java/com/scrapperapp/backend/scraper/controller/IScrapperController.java
+/home/euzinha/Documents/projetos/axul/DesafioJavaSrv2/axreng-test-senior/axreng-test/src/main/java/com/scrapperapp/backend/scraper/model/StatusScrapper.java
+/home/euzinha/Documents/projetos/axul/DesafioJavaSrv2/axreng-test-senior/axreng-test/src/main/java/com/scrapperapp/backend/scraper/fakeDatabase/Database.java
+/home/euzinha/Documents/projetos/axul/DesafioJavaSrv2/axreng-test-senior/axreng-test/src/main/java/com/scrapperapp/backend/scraper/fakeDatabase/FakeDatabase.java
+/home/euzinha/Documents/projetos/axul/DesafioJavaSrv2/axreng-test-senior/axreng-test/src/main/java/com/scrapperapp/backend/scraper/service/IScrapperService.java
