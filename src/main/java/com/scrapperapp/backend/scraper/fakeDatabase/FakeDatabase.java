@@ -2,27 +2,27 @@ package com.scrapperapp.backend.scraper.fakeDatabase;
 
 import com.scrapperapp.backend.scraper.model.ScrapperEntity;
 
-import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class FakeDatabase implements Database{
 
-    private final ConcurrentMap<String, ScrapperEntity> database;
+    private final ConcurrentHashMap<String, ScrapperEntity> database;
 
-    public FakeDatabase(ConcurrentMap<String, ScrapperEntity> database) {
+    public FakeDatabase(ConcurrentHashMap<String, ScrapperEntity> database) {
         this.database = database;
     }
 
     @Override
-    public String saveData(String id, ScrapperEntity data) {
-        database.put(id, data);
-        return id;
+    public ScrapperEntity saveData( ScrapperEntity data) {
+        database.put(data.getId(), data);
+        return data;
 
     }
 
     @Override
-    public String updateData(String id, ScrapperEntity data) {
-        database.replace(id, data);
-        return id;
+    public ScrapperEntity updateData( ScrapperEntity data) {
+        database.replace(data.getId(), data);
+        return data;
     }
 
 

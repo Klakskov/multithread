@@ -1,12 +1,12 @@
 package com.scrapperapp.backend.scraper.model;
 
-import java.util.ArrayList;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class GetScrapperDto {
 
     private String id;
     private StatusScrapper status;
-    private ArrayList<String> urls;
+    private ConcurrentLinkedQueue<String> urls;
 
 
     public String getId() {
@@ -25,11 +25,11 @@ public class GetScrapperDto {
         this.status = status;
     }
 
-    public ArrayList<String> getUrls() {
+    public ConcurrentLinkedQueue<String> getUrls() {
         return urls;
     }
 
-    public void setUrls(ArrayList<String> urls) {
+    public void setUrls(ConcurrentLinkedQueue<String> urls) {
         this.urls = urls;
     }
 }

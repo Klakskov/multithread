@@ -8,7 +8,7 @@ public class UtilFunctions {
     public static String createId(){
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
-        int targetStringLength = 6;
+        int targetStringLength = 8;
         Random random = new Random();
 
         return random.ints(leftLimit, rightLimit + 1)
@@ -17,4 +17,6 @@ public class UtilFunctions {
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
     }
+
+
 }

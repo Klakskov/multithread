@@ -1,6 +1,8 @@
 package com.scrapperapp.backend;
 
 import com.google.gson.Gson;
+import com.scrapperapp.backend.request.service.IRequestService;
+import com.scrapperapp.backend.request.service.RequestService;
 import com.scrapperapp.backend.scraper.controller.IScrapperController;
 import com.scrapperapp.backend.scraper.controller.ScrapperController;
 import com.scrapperapp.backend.scraper.fakeDatabase.Database;
@@ -12,12 +14,19 @@ import com.scrapperapp.backend.scraper.service.CreateScrapperService;
 import com.scrapperapp.backend.scraper.service.GetScrapperService;
 import com.scrapperapp.backend.scraper.service.interfaces.ICreateScrapperService;
 import com.scrapperapp.backend.scraper.service.interfaces.IGetScrapperService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static spark.Spark.*;
+import static spark.Spark.get;
+import static spark.Spark.post;
 
 public class Main {
+    private static Logger log = LoggerFactory.getLogger(Main.class);
+
     private static IScrapperController scrapperController;
     private static Gson gson;
 
@@ -25,7 +34,7 @@ public class Main {
 
 
 
-        initialize();
+        initialize(args);
         get("/crawl/:id", (req, res) ->{
             //"GET /crawl/" + req.params("id")
             String id = req.params("id");
@@ -67,9 +76,23 @@ public class Main {
     }
 
 
-    private static void initialize(){
+    private static void initialize(String[] args){
+
+        Map<String, String> argsMap = new LinkedHashMap<>();
+        for (String arg: args) {
+            String[] parts = arg.split("=", 2);
+
+            if(parts.length != 2){
+                log.error("cant decode argument arg {}", arg);
+                continue;
+            }
+            argsMap.put(parts[0], parts[1]);
+        }
+
+        IRequestService requestService = new RequestService();
+
         Database fakeDatabase = new FakeDatabase(new ConcurrentHashMap<>());
-        ICreateScrapperService createScrapperService = new CreateScrapperService(fakeDatabase);
+        ICreateScrapperService createScrapperService = new CreateScrapperService(fakeDatabase, argsMap.get("BASE_URL"));
         IGetScrapperService getScrapperService = new GetScrapperService(fakeDatabase);
 
         scrapperController = new ScrapperController(createScrapperService, getScrapperService);
