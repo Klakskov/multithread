@@ -11,10 +11,10 @@ public class ScrapperEntity {
 
     private String keyword;
 
-    private AtomicInteger urlToVisite;
+    private volatile AtomicInteger countUrlInAction;
 
-    public void setUrlToVisite(AtomicInteger urlToVisite) {
-        this.urlToVisite = urlToVisite;
+    public void setCountUrlInAction(AtomicInteger countUrlInAction) {
+        this.countUrlInAction = countUrlInAction;
     }
 
     public String getId() {
@@ -51,14 +51,14 @@ public class ScrapperEntity {
 
 
     public boolean isLastUrl(){
-        return urlToVisite.get() == 0;
+        return countUrlInAction.get() == 0;
     }
 
-    public int addUrlToVisit(){
-        return urlToVisite.addAndGet(1);
+    public int addUrlInAction(){
+        return countUrlInAction.addAndGet(1);
     }
 
-    public int decreaseVisitedSite() {
-        return urlToVisite.decrementAndGet();
+    public int decreaseUrlInAction() {
+        return countUrlInAction.decrementAndGet();
     }
 }
