@@ -106,7 +106,8 @@ public class Main {
             argsMap.put(parts[0].replace("--", ""), parts[1]);
         }
 
-        String BASE_URL =  argsMap.get("BASE_URL");
+        String BASE_URL =  argsMap.get("BASE_URL") == null ? System.getenv("BASE_URL") :  argsMap.get("BASE_URL");
+
         if(BASE_URL == null || BASE_URL.isEmpty()){
             log.error("argument BASE_URL is mandatory !");
             throw new RuntimeException("cant initialize, BASE_URL argument is mandatory!");
