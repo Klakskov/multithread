@@ -36,16 +36,11 @@ public class Main {
 
         initialize(args);
         get("/crawl/:id", (req, res) ->{
-                    res.type("json");
-
-                    //"GET /crawl/" + req.params("id")
+                    res.type("application/json");
                     String id = req.params("id");
                     if(id == null || id.length() != 8){
                         res.status(400);
-                        res.body(
-                                gson.toJson("wrong id informed, must has 8 alphanumeric characters")
-                        );
-                        return res;
+                        return gson.toJson("wrong id informed, must has 8 alphanumeric characters");
                     }
 
                     GetScrapperDto dto = scrapperController.getScrapperById(id);
@@ -53,16 +48,14 @@ public class Main {
                     res.status(200);
                     res.body(gson.toJson(dto));
 
-                    return res;
+                    return gson.toJson(dto);
 
                 }
         );
         post("/crawl", (req, res) -> {
-                    res.type("json");
-                    //"POST /crawl" + System.lineSeparator() + req.body()
                     res.type("application/json");
                     String body = req.body();
-                    if(body == null){
+                    if(body == null ){
                         res.status(400);
                         res.body("Nao foi enviado keyword para busca!");
                         return res;
@@ -83,9 +76,8 @@ public class Main {
 
 
                     res.status(201);
-                    res.body(gson.toJson(dto));
 
-                    return res;
+                    return gson.toJson(dto);
 
                 }
         );
@@ -116,7 +108,10 @@ public class Main {
 
         Database fakeDatabase = new FakeDatabase(new ConcurrentHashMap<>());
 
-        IDoScrapper doScrapper = new DoScrapper();
+
+        IDoScrapper doScrapper = new DoScrapper(
+                Runtime.getRuntime().availableProcessors() // could be a varible
+        );
 
         ICreateScrapperService createScrapperService = new CreateScrapperService(fakeDatabase, BASE_URL,
                 doScrapper, requestService);

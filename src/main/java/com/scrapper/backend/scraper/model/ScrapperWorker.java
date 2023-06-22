@@ -18,11 +18,11 @@ public class ScrapperWorker implements Runnable{
     final String url;
     final String rootUrl;
     final Vector<String> urlVisited;
-
-    private final String regexIsLink = "href\\s*=\\s*\"(?<site>[^\"]*\\.html|[^.\"\\s]*)\"";
     private final IRequestService requestService;
     private final IDoScrapper doScrapper;
     private final Database database;
+
+    private final Pattern patternToSearch;
 
 
 
@@ -32,7 +32,8 @@ public class ScrapperWorker implements Runnable{
                           Vector<String> urlVisited,
                           IRequestService requestService,
                           IDoScrapper doScrapper,
-                          Database database) {
+                          Database database,
+                          Pattern patternToSearch) {
         this.entity = entity;
         this.url = url;
         this.rootUrl = rootUrl;
@@ -40,6 +41,7 @@ public class ScrapperWorker implements Runnable{
         this.requestService = requestService;
         this.doScrapper = doScrapper;
         this.database = database;
+        this.patternToSearch = patternToSearch;
     }
 
     @Override
@@ -50,8 +52,7 @@ public class ScrapperWorker implements Runnable{
 
             String site = requestService.getUrlContent(url);
 
-            Pattern pattern = createPattern(entity.getKeyword(), regexIsLink);
-            Matcher matcher = pattern.matcher(site);  // Creating a matcher for the text
+            Matcher matcher = patternToSearch.matcher(site);  // Creating a matcher for the text
 
 
             boolean foundTwice = false;
@@ -84,7 +85,9 @@ public class ScrapperWorker implements Runnable{
 
     private Pattern createPattern(String keyword, String regexIsLink) {
         // Joining the patterns with capturing groups
-        String combinedPattern = "((?<keyword>" + keyword + ")|(" + regexIsLink + "))";
+        String combinedPattern = "((?<keyword>\\b" + keyword + "\\b)" +
+                // \\b its to only match the word alone, like javascript isnt java.
+                "|(" + regexIsLink + "))";
         // Compiling the combined pattern
         return Pattern.compile(combinedPattern, Pattern.CASE_INSENSITIVE);
     }
